@@ -15,6 +15,10 @@ res) => {
  console.log(res);
  });
 }
+
+function validateInputs(first, last, username, email, password) {
+    //Checks all user input
+}
 /**
 * Method to get a salted hash.
 * We put this in its own method to keep consistency

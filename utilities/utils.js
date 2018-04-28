@@ -4,16 +4,16 @@ let db = require('./sql_conn.js');
 const crypto = require("crypto");
 const FormData = require("form-data");
 function sendEmail(from, to, subject, message) {
- let form = new FormData();
- form.append("from", from);
- form.append("to", to);
- form.append("subject", subject);
- form.append("message", message);
- form.submit("http://cssgate.insttech.washington.edu/~cfb3/mail.php", (err,
-res) => {
- if(err) console.error(err);
- console.log(res);
- });
+    let form = new FormData();
+    form.append("from", from);
+    form.append("to", to);
+    form.append("subject", subject);
+    form.append("message", message);
+    form.submit("http://cssgate.insttech.washington.edu/~cfb3/mail.php", (err,
+        res) => {
+        if (err) console.error(err);
+        console.log(res);
+    });
 }
 
 function validateInputs(first, last, username, email, password) {
@@ -26,8 +26,8 @@ function validateInputs(first, last, username, email, password) {
 * @param {string} salt the salt to use when hashing
 */
 function getHash(pw, salt) {
- return crypto.createHash("sha256").update(pw + salt).digest("hex");
+    return crypto.createHash("sha256").update(pw + salt).digest("hex");
 }
 module.exports = {
- db, getHash, sendEmail
+    db, getHash, sendEmail
 };

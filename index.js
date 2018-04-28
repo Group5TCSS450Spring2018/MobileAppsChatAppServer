@@ -16,20 +16,6 @@ app.use('/register', reg);
 var login = require('./routes/login.js');
 app.use('/login', login);
 
-/*
- * Return HTML for the / end point. 
- * This is a nice location to document your web service API
- * Create a web page in HTML/CSS and have this end point return it. 
- * Look up the node module 'fs' ex: require('fs');
- */
-app.get("/", (req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    for (i = 1; i < 7; i++) {
-        //write a response to the client
-        res.write('<h' + i + ' style="color:blue">Hello World!</h' + i + '>');
-    }
-    res.end(); //end the response
-});
 
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable

@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS Members;
 CREATE TABLE Members (MemberID SERIAL PRIMARY KEY,
-                      FirstName VARCHAR(255) NOT NULL,
-		              LastName VARCHAR(255) NOT NULL,
-                      Username VARCHAR(255) NOT NULL UNIQUE,
-                      Email VARCHAR(255) NOT NULL UNIQUE,
+                      FirstName VARCHAR(32) NOT NULL,
+		              LastName VARCHAR(32) NOT NULL,
+                      Username VARCHAR(32) NOT NULL UNIQUE,
+                      Email VARCHAR(48) NOT NULL UNIQUE,
                       Password VARCHAR(255) NOT NULL,
                       SALT VARCHAR(255),
                       Verification INT DEFAULT 0
@@ -48,9 +48,4 @@ CREATE TABLE Locations (PrimaryKey SERIAL PRIMARY KEY,
                         Long DECIMAL,
                         ZIP INT,
                         FOREIGN KEY(MemberID) REFERENCES Members(MemberID)
-);
-
-DROP TABLE IF EXISTS Demo;
-CREATE TABLE Demo (DemoID SERIAL PRIMARY KEY,
-                        Text VARCHAR(255)
 );

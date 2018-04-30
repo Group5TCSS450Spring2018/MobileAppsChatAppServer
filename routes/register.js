@@ -7,10 +7,13 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 //We use this create the SHA256 hash
 const crypto = require("crypto");
+
+
 //Create connection to Heroku Database
 let db = require('../utilities/utils').db;
 let getHash = require('../utilities/utils').getHash;
 let sendEmail = require('../utilities/utils').sendEmail;
+let validateInputs = require('../utilities/utils').validateInputs;
 var router = express.Router();
 router.post('/', (req, res) => {
     res.type("application/json");
@@ -20,26 +23,28 @@ router.post('/', (req, res) => {
     var username = req.body['username'];
     var email = req.body['email'];
     var password = req.body['password'];
+    
+    var validateCredentials = validateInputs(first, last, username, email, password);
+    console.log("Valid credentials: " + validateCredentials);
     //Verify that the caller supplied all the parameters
     //In js, empty strings or null values evaluate to false
-    if (first && last && username && email && password) {
+    if (first && last && username && email && password && validateCredentials) {
         //We're storing salted hashes to make our application more secure
         //If you're interested as to what that is, and why we should use it
         //watch this youtube video: https://www.youtube.com/watch?v=8ZtInClXe1Q
         let salt = crypto.randomBytes(32).toString("hex");
         let salted_hash = getHash(password, salt);
-
         //Use .none() since no result gets returned from an INSERT in SQL
         //We're using placeholders ($1, $2, $3) in the SQL query string to avoid SQL Injection
         //If you want to read more: https://stackoverflow.com/a/8265319
         let params = [first, last, username, email, salted_hash, salt];
         db.none("INSERT INTO MEMBERS(FirstName, LastName, Username, Email,Password, Salt) VALUES($1, $2, $3, $4, $5, $6)", params)
             .then(() => {
+                sendEmail("cfb3@uw.edu", email, "Welcome to our app!", "<strong>Welcome to our chat app!</strong > <br> <h2>VERIFICATION CODE</h2>");
                 //We successfully added the user, let the user know
                 res.send({
                     success: true
                 });
-                sendEmail("cfb3@uw.edu", email, "Welcome!", "<strong>Welcome to ourapp!</strong > ");
             }).catch((err) => {
                 //log the error
                 console.log(err);
@@ -54,7 +59,7 @@ router.post('/', (req, res) => {
         res.send({
             success: false,
             input: req.body,
-            error: "Missing required user information"
+            error: "Invalid registration! Go through and make sure email is valid!"
         });
     }
 });

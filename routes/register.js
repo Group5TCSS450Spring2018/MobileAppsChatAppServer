@@ -37,10 +37,13 @@ router.post('/', (req, res) => {
         //Use .none() since no result gets returned from an INSERT in SQL
         //We're using placeholders ($1, $2, $3) in the SQL query string to avoid SQL Injection
         //If you want to read more: https://stackoverflow.com/a/8265319
-        let params = [first, last, username, email, salted_hash, salt];
-        db.none("INSERT INTO MEMBERS(FirstName, LastName, Username, Email,Password, Salt) VALUES($1, $2, $3, $4, $5, $6)", params)
+        var verificationCode = Math.floor(1000 + Math.random() * 9000);
+        var bodyStr = "VERIFICATION CODE: " + verificationCode.toString();
+        console.log(bodyStr);
+        let params = [first, last, username, email, salted_hash, salt, verificationCode];
+        db.none("INSERT INTO MEMBERS(FirstName, LastName, Username, Email,Password, Salt, VerificationCode) VALUES($1, $2, $3, $4, $5, $6, $7)", params)
             .then(() => {
-                sendEmail("cfb3@uw.edu", email, "Welcome to our app!", "<strong>Welcome to our chat app!</strong > <br> <h2>VERIFICATION CODE</h2>");
+                sendEmail("cfb3@uw.edu", email, bodyStr, "If this thing works I will be happy :)");
                 //We successfully added the user, let the user know
                 res.send({
                     success: true

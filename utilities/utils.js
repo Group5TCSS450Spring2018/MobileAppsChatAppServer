@@ -39,7 +39,7 @@ function validateInputs(first, last, username, email, password) {
     }
     if (!validator.isAlphanumeric(first) || !validator.isAlphanumeric(last) || !validator.isAlphanumeric(username) || !validator.isAlphanumeric(password)) {
         isValidReg = false;
-        console.log('fuck you');
+        console.log('Fuck you');
     }
     if (!validator.isEmail(email)) {
         isValidReg = false;

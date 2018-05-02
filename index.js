@@ -16,6 +16,9 @@ app.use('/register', reg);
 var login = require('./routes/login.js');
 app.use('/login', login);
 
+var verify = require('./routes/verify.js');
+app.use('/verify', verify);
+
 
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable

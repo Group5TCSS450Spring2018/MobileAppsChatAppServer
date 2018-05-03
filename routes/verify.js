@@ -12,9 +12,9 @@ var router = express.Router();
 
 router.post('/', (req, res) => {
     let userCode = req.body['verifyCode'];
-    let email = req.body['email'];
-    if (userCode) {
-        db.none('SELECT email FROM members WHERE verificationcode=$1 AND verification=0 AND email=$2', [userCode, email])
+    let username = req.body['username'];
+    if (userCode && username) {
+        db.none('SELECT email FROM members WHERE verificationcode=$1 AND verification=0 AND username=$2', [userCode, username])
         .then(row => {
         })
         .catch((err) => {

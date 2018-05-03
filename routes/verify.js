@@ -14,25 +14,29 @@ router.post('/', (req, res) => {
     let userCode = req.body['verifyCode'];
     let username = req.body['username'];
     if (userCode && username) {
-        db.none('SELECT email FROM members WHERE verificationcode=$1 AND verification=0 AND username=$2', [userCode, username])
-        .then(row => {
+        db.one('SELECT email FROM members WHERE verificationcode=$1 AND verification=0 AND username=$2', [userCode, username])
+        .then(row => { 
+            db.none('UPDATE members SET verification=1 WHERE verificationcode=$1', [userCode])
+            .then(row2 =>{
+                res.send({
+                    success:true,
+                    message: "verified!"
+                });
+            }).catch((err) => { // if updating caused an error, unsuccessful
+                res.send({
+                    success: false,
+                    error: err
+                });
+            });
         })
-        .catch((err) => {
-            //If anything happened, it wasn't successful
+        .catch(err => {
+            //if non verified member did not exist, was not successful
             res.send({
-                success: false
+                success: false,
+                error: err
             });
         });
-        db.none('UPDATE members SET verification=1 WHERE verificationcode=$1', [userCode])
-        .then(row =>{
-            res.send({
-                success:true
-            });
-        }).catch((err) => {
-            res.send({
-                success: false
-            });
-        });
+
     } else {
         res.send({
             success: false,

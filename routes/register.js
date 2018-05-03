@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
         let params = [first, last, username, email, salted_hash, salt, verificationCode];
         db.none("INSERT INTO MEMBERS(FirstName, LastName, Username, Email,Password, Salt, VerificationCode) VALUES($1, $2, $3, $4, $5, $6, $7)", params)
             .then(() => {
-                sendEmail("cfb3@uw.edu", email, bodyStr, "If this thing works I will be happy :)");
+                sendEmail("team5mobileapps619@gmail.com", email, "WELCOME TO OUR APP", bodyStr);
                 //We successfully added the user, let the user know
                 res.send({
                     success: true

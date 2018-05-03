@@ -5,19 +5,53 @@ const crypto = require("crypto");
 const FormData = require("form-data");
 const validator = require('validator');
 const emailExistence = require('email-existence');
-function sendEmail(from, to, subject, message) {
-    let form = new FormData();
-    form.append("from", from);
-    form.append("to", to);
-    form.append("subject", subject);
-    form.append("message", message);
-    form.submit("http://cssgate.insttech.washington.edu/~cfb3/mail.php", (err,
-        res) => {
-        if (err) {
-            console.error(err);
-        } 
-        //console.log(res);
+const nodemailer = require('nodemailer');
+
+function sendEmail(from1, to1, subject1, message) {
+    nodemailer.createTestAccount((err, account) => {
+        // create reusable transporter object using the default SMTP transport
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: from1, // generated ethereal user
+                pass: "mobileteam5!" // generated ethereal password
+            }
+        });
+    
+        // setup email data with unicode symbols
+        let mailOptions = {
+            from: from1, // sender address
+            to: to1, // list of receivers
+            subject: subject1, // Subject line
+            text: message, // plain text body
+        };
+    
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            // console.log('Message sent: %s', info.messageId);
+            // // Preview only available when sending through an Ethereal account
+            // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+            console.log("Message  sent");
+            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+        });
     });
+    
+    // let form = new FormData();
+    // form.append("from", from);
+    // form.append("to", to);
+    // form.append("subject", subject);
+    // form.append("message", message);
+    // form.submit("http://cssgate.insttech.washington.edu/~cfb3/mail.php", (err,
+    //     res) => {
+    //     if (err) {
+    //         console.error(err);
+    //     } 
+    //     //console.log(res);
+    // });
 }
 
 

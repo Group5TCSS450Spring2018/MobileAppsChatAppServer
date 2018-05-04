@@ -41,7 +41,7 @@ router.post('/', (req, res) => {
         var bodyStr = "VERIFICATION CODE: " + verificationCode.toString();
         console.log(bodyStr);
         let params = [first, last, username, email, salted_hash, salt, verificationCode];
-        db.none("INSERT INTO MEMBERS(FirstName, LastName, Username, Email,Password, Salt, VerificationCode) VALUES($1, $2, $3, $4, $5, $6, $7)", params)
+        db.none("INSERT INTO MEMBERS(FirstName, LastName, Username, Email, Password, Salt, VerificationCode) VALUES($1, $2, $3, $4, $5, $6, $7)", params)
             .then(() => {
                 sendEmail("cfb3@uw.edu", email, bodyStr, "If this thing works I will be happy :)");
                 //We successfully added the user, let the user know

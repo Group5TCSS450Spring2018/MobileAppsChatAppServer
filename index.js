@@ -19,6 +19,9 @@ app.use('/login', login);
 var verify = require('./routes/verify.js');
 app.use('/verify', verify);
 
+var deleteMember = require('./routes/deleteMember.js');
+app.use('/deleteMember', deleteMember);
+
 
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable

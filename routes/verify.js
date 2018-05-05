@@ -15,28 +15,28 @@ router.post('/', (req, res) => {
     let username = req.body['username'];
     if (userCode && username) {
         db.one('SELECT email FROM members WHERE verificationcode=$1 AND verification=0 AND username=$2', [userCode, username])
-        .then(row => {
-            db.none('UPDATE members SET verification=1 WHERE verificationcode=$1', [userCode])
-            .then(row2 =>{
-                sendEmail("team5mobileapps619@gmail.com", row['email'], "Email is verified!", "Thank you for using our app.");
-                res.send({
-                    success:true,
-                    message: "verified!"
-                });
-            }).catch((err) => { // if updating caused an error, unsuccessful
+            .then(row => {
+                db.none('UPDATE members SET verification=1 WHERE verificationcode=$1', [userCode])
+                    .then(row2 => {
+                        sendEmail("team5mobileapps619@gmail.com", row['email'], "Email is verified!", "Thank you for using our app.");
+                        res.send({
+                            success: true,
+                            message: "verified!"
+                        });
+                    }).catch((err) => { // if updating caused an error, unsuccessful
+                        res.send({
+                            success: false,
+                            error: err
+                        });
+                    });
+            })
+            .catch(err => {
+                //if non verified member did not exist, was not successful
                 res.send({
                     success: false,
                     error: err
                 });
             });
-        })
-        .catch(err => {
-            //if non verified member did not exist, was not successful
-            res.send({
-                success: false,
-                error: err
-            });
-        });
 
     } else {
         res.send({

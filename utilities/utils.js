@@ -39,19 +39,6 @@ function sendEmail(from1, to1, subject1, message) {
             // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
         });
     });
-    
-    // let form = new FormData();
-    // form.append("from", from);
-    // form.append("to", to);
-    // form.append("subject", subject);
-    // form.append("message", message);
-    // form.submit("http://cssgate.insttech.washington.edu/~cfb3/mail.php", (err,
-    //     res) => {
-    //     if (err) {
-    //         console.error(err);
-    //     } 
-    //     //console.log(res);
-    // });
 }
 
 
@@ -79,13 +66,16 @@ function validateInputs(first, last, username, email, password) {
         isValidReg = false;
         console.log('Invalid email here');
     }
-        // } else {
-    //     emailExistence.check(email, function(error, response){
-    //         console.log('res: '+response);
-    //     });    
-    // }
 
     return isValidReg;
+}
+
+function checkOneDayAgo(timeRegistered) {
+    const twentyFourHour = 1000 * 60 * 60 * 24;
+    console.log(timeRegistered);
+    console.log(timeRegistered);
+    let twentyFourAgo = Date.now() - twentyFourHour;
+    return timeRegistered > twentyFourAgo;
 }
 
 /**
@@ -98,5 +88,5 @@ function getHash(pw, salt) {
     return crypto.createHash("sha256").update(pw + salt).digest("hex");
 }
 module.exports = {
-    db, getHash, sendEmail, validateInputs
+    db, getHash, sendEmail, validateInputs, checkOneDayAgo
 };

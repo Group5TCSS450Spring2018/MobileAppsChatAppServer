@@ -8,13 +8,18 @@ app.use(bodyParser.json());
 
 let db = require('../utilities/utils').db;
 
+let checkOneDayAgo = require('../utilities/utils').checkOneDayAgo;
+
+let sendEmail = require('../utilities/utils').sendEmail;
+
 var router = express.Router();
 
 router.post('/', (req, res) => {
     let userCode = req.body['verifyCode'];
     let username = req.body['username'];
+    let query = `SELECT timestamp, email FROM members WHERE verificationcode=$1 AND verification=0 AND username=$2`
     if (userCode && username) {
-        db.one('SELECT email FROM members WHERE verificationcode=$1 AND verification=0 AND username=$2', [userCode, username])
+        db.one(query, [userCode, username])
             .then(row => {
                 db.none('UPDATE members SET verification=1 WHERE verificationcode=$1', [userCode])
                     .then(row2 => {

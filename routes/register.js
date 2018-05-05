@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
         //If you want to read more: https://stackoverflow.com/a/8265319
         var verificationCode = Math.floor(1000 + Math.random() * 9000);
         var bodyStr = "VERIFICATION CODE: " + verificationCode.toString();
-        console.log(bodyStr);
+        //console.log(bodyStr);
         let params = [first, last, username, email, salted_hash, salt, verificationCode];
         db.none("INSERT INTO MEMBERS(FirstName, LastName, Username, Email, Password, Salt, VerificationCode) VALUES($1, $2, $3, $4, $5, $6, $7)", params)
             .then(() => {

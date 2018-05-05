@@ -37,8 +37,8 @@ app.use('/getMessages', getMessages);
 var acceptConnection = require('./routes/acceptConnection.js');
 app.use('/acceptConnection', acceptConnection);
 
-// var getConnectionRequests = require('./routes/getConnectionRequests.js');
-// app.use('/getConnectionRequests', getConnectionRequests);
+var getConnectionRequests = require('./routes/getConnectionRequests.js');
+app.use('/getConnectionRequests', getConnectionRequests);
 
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable

@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "delay": "^2.0.0",
     "email-check": "^1.1.0",
     "email-existence": "^0.1.6",
     "express": "^4.16.2",

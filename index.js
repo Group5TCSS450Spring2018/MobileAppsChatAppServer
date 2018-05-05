@@ -28,6 +28,9 @@ app.use('/sendMessages', sendMessages);
 var getMessages = require('./routes/getMessages.js');
 app.use('/getMessages', getMessages);
 
+var addConnection = require('./routes/addConnection.js');
+app.use('/addConnection', getMessages);
+
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable
 * To accesss an environment variable, use process.env.<ENV>

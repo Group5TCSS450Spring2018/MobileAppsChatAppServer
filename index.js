@@ -22,6 +22,11 @@ app.use('/verify', verify);
 var deleteMember = require('./routes/deleteMember.js');
 app.use('/deleteMember', deleteMember);
 
+var sendMessages = require('./routes/sendMessages.js');
+app.use('/sendMessages', sendMessages);
+
+var getMessages = require('./routes/getMessages.js');
+app.use('/getMessages', getMessages);
 
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable

@@ -72,8 +72,6 @@ function validateInputs(first, last, username, email, password) {
 
 function checkOneDayAgo(timeRegistered) {
     const twentyFourHour = 1000 * 60 * 60 * 24;
-    console.log(timeRegistered);
-    console.log(timeRegistered);
     let twentyFourAgo = Date.now() - twentyFourHour;
     return timeRegistered > twentyFourAgo;
 }

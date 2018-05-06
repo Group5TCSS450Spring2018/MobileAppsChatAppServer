@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 //Create connection to Heroku Database
 let db = require('../utilities/utils').db;
 let getHash = require('../utilities/utils').getHash;
+
 var router = express.Router();
 //app.get('/users') means accept http 'GET' requests at path '/users'
 router.post('/', (req, res) => {
@@ -16,6 +17,7 @@ router.post('/', (req, res) => {
     let theirPw = req.body['password'];
     let wasSuccessful = false;
     if (user && theirPw) {
+        //Temp
         //Using the 'one' method means that only one row should be returned
         db.one('SELECT Password, Salt, Verification FROM Members WHERE Username=$1', [user])
             //If successful, run function passed into .then()

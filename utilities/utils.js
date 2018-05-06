@@ -70,13 +70,13 @@ function validateInputs(first, last, username, email, password) {
     return isValidReg;
 }
 
-function checkOneDayAgo(timeRegistered) {
-    const twentyFourHour = 1000 * 60 * 60 * 24;
-    console.log(timeRegistered);
-    console.log(timeRegistered);
-    let twentyFourAgo = Date.now() - twentyFourHour;
-    return timeRegistered > twentyFourAgo;
-}
+// function checkOneDayAgo(timeRegistered) {
+//     const twentyFourHour = 1000 * 60 * 60 * 24;
+//     console.log(timeRegistered);
+//     console.log(timeRegistered);
+//     let twentyFourAgo = Date.now() - twentyFourHour;
+//     return timeRegistered > twentyFourAgo;
+// }
 
 /**
 * Method to get a salted hash.

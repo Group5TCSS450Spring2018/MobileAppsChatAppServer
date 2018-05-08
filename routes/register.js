@@ -25,7 +25,6 @@ router.post('/', (req, res) => {
     var password = req.body['password'];
     
     var validateCredentials = validateInputs(first, last, username, email, password);
-    console.log("Valid credentials: " + validateCredentials);
     //Verify that the caller supplied all the parameters
     //In js, empty strings or null values evaluate to false
     if (first && last && username && email && password && validateCredentials) {

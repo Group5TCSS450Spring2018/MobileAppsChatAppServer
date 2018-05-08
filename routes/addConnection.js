@@ -9,7 +9,6 @@ const bodyParser = require("body-parser");
 //This allows parsing of the body of POST requests, that are encoded in JSON
 app.use(bodyParser.json());
 router.post('/', (req, res) => {
-    
     let username_a = req.body['username_a'];
     let username_b = req.body['username_b'];
     if(!username_a || !username_b ) {

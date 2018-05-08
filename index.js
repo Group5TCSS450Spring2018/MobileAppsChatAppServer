@@ -49,6 +49,9 @@ app.use('/resetPassword', resetPassword);
 var updatePassword = require('./routes/updatePassword.js');
 app.use('/updatePassword', updatePassword);
 
+var searchConnections = require('./routes/searchConnections');
+app.use('/searchConnections', searchConnections);
+
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable
 * To accesss an environment variable, use process.env.<ENV>

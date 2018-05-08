@@ -9,10 +9,15 @@ app.use(bodyParser.json());
 //Create connection to Heroku Database
 let db = require('../utilities/utils').db;
 
+var router = express.Router();
+
+//search by username
 router.post("/", (req, res) => {
-    var username = req.body['username'];
-    db.manyOrNone("SELECT firstname, lastname FROM members WHERE username LIKE %$1$", username)
+    var search = req.body['search'];
+    var query = "SELECT firstname, lastname FROM members WHERE username LIKE '" + search + "%'";
+    db.manyOrNone(query)
     .then(rows => {
+        console.log(rows);
         res.send({
             message: rows
         });

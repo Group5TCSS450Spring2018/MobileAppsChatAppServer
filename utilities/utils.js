@@ -52,24 +52,28 @@ function validateInputs(first, last, username, email, password) {
     if (validator.isEmpty(first) || validator.isEmpty(last) || validator.isEmpty(username) || validator.isEmpty(email)
         || validator.isEmpty(password)) {
             isValidReg = false;
-            console.log('Empty field');
     }
     if (password.length < 6 || password.length > 32 || email.length > 48 || first.length > 32 || last.length > 32) {
         isValidReg = false;
-        console.log('Password too short or something too long');
     }
     if (!validator.isAlphanumeric(first) || !validator.isAlphanumeric(last) || !validator.isAlphanumeric(username) || !validator.isAlphanumeric(password)) {
         isValidReg = false;
-        console.log('Fuck you');
     }
     if (!validator.isEmail(email)) {
         isValidReg = false;
-        console.log('Invalid email here');
     }
 
     return isValidReg;
 }
 
+function validatePass(password) {
+    var isValid = true;
+    validator.trim(password);
+    if (validator.isEmpty(password) || !validator.isAlphanumeric(password) || password.length < 6 || password.length > 32) {
+        isValid = false;
+    } 
+    return isValid;
+}
 function checkOneDayAgo(timeRegistered) {
     const twentyFourHour = 1000 * 60 * 60 * 24;
     let twentyFourAgo = Date.now() - twentyFourHour;
@@ -86,5 +90,5 @@ function getHash(pw, salt) {
     return crypto.createHash("sha256").update(pw + salt).digest("hex");
 }
 module.exports = {
-    db, getHash, sendEmail, validateInputs, checkOneDayAgo
+    db, getHash, sendEmail, validateInputs, checkOneDayAgo, validatePass
 };

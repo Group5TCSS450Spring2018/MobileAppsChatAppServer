@@ -40,6 +40,15 @@ app.use('/acceptConnection', acceptConnection);
 var getConnectionRequests = require('./routes/getConnectionRequests.js');
 app.use('/getConnectionRequests', getConnectionRequests);
 
+var addChat = require('./routes/addChat');
+app.use('/addChat', addChat);
+
+var resetPassword = require('./routes/resetPassword.js');
+app.use('/resetPassword', resetPassword);
+
+var updatePassword = require('./routes/updatePassword.js');
+app.use('/updatePassword', updatePassword);
+
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable
 * To accesss an environment variable, use process.env.<ENV>

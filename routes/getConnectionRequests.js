@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
     let username = req.body['username']; //memberid_a is the reciever of request
-    let query = `SELECT memberid_b FROM contacts WHERE memberid_a=(SELECT memberid FROM members WHERE username=$1)`
+    let query = `SELECT memberid_b FROM contacts WHERE memberid_a=(SELECT memberid FROM members WHERE username=$1) AND verified=0`
     var connectionList = [];
     db.manyOrNone(query, [username])
         .then(rows => {
@@ -25,6 +25,9 @@ router.post("/", (req, res) => {
                 db.one(query_info, [requestee])
                     .then(row => {
                         connectionList.push(row);
+                        res.send( {
+                            message: rows
+                        })
                     }).catch((err) => {
                         message: "Not a user!"
                     });

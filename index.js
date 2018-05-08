@@ -28,11 +28,11 @@ app.use('/sendMessages', sendMessages);
 var getMessages = require('./routes/getMessages.js');
 app.use('/getMessages', getMessages);
 
-// var addConnection = require('./routes/addConnection.js');
-// app.use('/addConnection', getMessages);
+var addConnection = require('./routes/addConnection.js');
+app.use('/addConnection', addConnection);
 
-// var removeConnection = require('./routes/removeConnection.js');
-// app.use('/removeConnection', removeConnection);
+var removeConnection = require('./routes/removeConnection.js');
+app.use('/removeConnection', removeConnection);
 
 var acceptConnection = require('./routes/acceptConnection.js');
 app.use('/acceptConnection', acceptConnection);

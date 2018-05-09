@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
     var query = "SELECT firstname, lastname FROM members WHERE username LIKE '" + search + "%'";
     db.manyOrNone(query)
     .then(rows => {
-        console.log(rows);
+        //console.log(rows);
         res.send({
             message: rows
         });

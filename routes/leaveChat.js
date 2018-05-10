@@ -12,27 +12,18 @@ var router = express.Router();
 const bodyParser = require("body-parser");
 //This allows parsing of the body of POST requests, that are encoded in JSON
 app.use(bodyParser.json());
-
+//Allows user to leave the chat forever
 router.post("/", (req, res) => {
-    let username = req.body['username']; //memberid_a is the reciever of request
-    let query = `SELECT username, firstname, lastname 
-                    FROM members 
-                    WHERE memberid 
-                    IN (
-                        SELECT memberid_b 
-                        FROM contacts 
-                        WHERE memberid_a=(
-                            SELECT memberid 
-                            FROM members 
-                            WHERE username=$1
-                        ) 
-                        AND verified=1
-                    )`;
-    db.manyOrNone(query, [username])
+    let username = req.body['username'];
+    let chatName = req.body['chatname']; 
+    let query = `DELETE FROM chatmembers WHERE 
+                chatmembers.memberid IN (SELECT members.memberid FROM members WHERE username=$1) 
+                AND chatmembers.chatid IN (SELECT chats.chatid FROM chats WHERE chats.name=$2)`;
+    db.none(query, [username, chatName])
     .then(rows => {
         res.send({
             success: true,
-            recieved_requests: rows
+            message: "You have left!"
         })
     })
     .catch((err) => {

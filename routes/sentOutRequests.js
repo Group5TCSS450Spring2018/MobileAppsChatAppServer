@@ -19,15 +19,16 @@ router.post("/", (req, res) => {
                     FROM members 
                     WHERE memberid 
                     IN (
-                        SELECT memberid_b 
+                        SELECT memberid_a 
                         FROM contacts 
-                        WHERE memberid_a=(
+                        WHERE memberid_b=(
                             SELECT memberid 
                             FROM members 
                             WHERE username=$1
                         ) 
-                        AND verified=1
+                        AND verified=0
                     )`;
+    
     db.manyOrNone(query, [username])
     .then(rows => {
         res.send({

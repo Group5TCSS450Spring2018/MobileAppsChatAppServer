@@ -14,20 +14,12 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
-    let username = req.body['username']; //memberid_a is the reciever of request
-    let query = `SELECT username, firstname, lastname 
-                    FROM members 
-                    WHERE memberid 
-                    IN (
-                        SELECT memberid_b 
-                        FROM contacts 
-                        WHERE memberid_a=(
-                            SELECT memberid 
-                            FROM members 
-                            WHERE username=$1
-                        ) 
-                        AND verified=1
-                    )`;
+    let username = req.body['username'];
+    let query = `SELECT name FROM chats WHERE chats.chatid IN 
+                (SELECT chatmembers.chatid FROM chatmembers 
+                    WHERE chatmembers.memberid = (SELECT members.memberid FROM members
+                    WHERE username=$1))`;
+    
     db.manyOrNone(query, [username])
     .then(rows => {
         res.send({

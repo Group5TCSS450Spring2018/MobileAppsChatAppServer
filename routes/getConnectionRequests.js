@@ -15,38 +15,32 @@ app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
     let username = req.body['username']; //memberid_a is the reciever of request
-    let query = `SELECT memberid_b FROM contacts WHERE memberid_a=(SELECT memberid FROM members WHERE username=$1) AND verified=0`
-    var connectionList = [];
+    let query = `SELECT username, firstname, lastname 
+                    FROM members 
+                    WHERE memberid 
+                    IN (
+                        SELECT memberid_b 
+                        FROM contacts 
+                        WHERE memberid_a=(
+                            SELECT memberid 
+                            FROM members 
+                            WHERE username=$1
+                        ) 
+                        AND verified=0
+                    )`;
+    
     db.manyOrNone(query, [username])
-        .then(rows => {
-            let query_info = `SELECT username, firstname, lastname FROM members WHERE memberid=$1`
-            for (var i = 0; i < rows.length; i++) {
-                var requestee = rows[i]['memberid_b'];
-                db.one(query_info, [requestee])
-                    .then(row => {
-                        connectionList.push(row);
-                        res.send( {
-                            message: rows
-                        })
-                    }).catch((err) => {
-                        message: "Not a user!"
-                    });
-            }
-        }).catch((err) => {
-            res.send({
-                message: "Something went wrong",
-                error: err
-            })
-        });
-
-    delay(1500)
-    .then(() => {
-        console.log(connectionList);
+    .then(rows => {
         res.send({
-            connection: connectionList
+            success: true,
+            recieved_requests: rows
         })
-    }).catch((err) => {
-        message: err
+    })
+    .catch((err) => {
+        res.send({
+            message: "Something went wrong",
+            error: err
+        })
     });
 });
 

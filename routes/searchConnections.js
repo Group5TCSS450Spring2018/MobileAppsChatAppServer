@@ -14,10 +14,9 @@ var router = express.Router();
 //search by username
 router.post("/", (req, res) => {
     var search = req.body['search'];
-    var query = "SELECT firstname, lastname FROM members WHERE username LIKE '" + search + "%'";
+    var query = "SELECT firstname, lastname FROM members WHERE username LIKE '" + search + "%' OR email LIKE '" + search + "%'";
     db.manyOrNone(query)
     .then(rows => {
-        //console.log(rows);
         res.send({
             message: rows
         });

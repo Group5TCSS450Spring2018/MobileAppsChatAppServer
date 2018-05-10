@@ -39,8 +39,10 @@ app.use('/acceptConnection', acceptConnection);
 
 var getConnectionRequests = require('./routes/getConnectionRequests.js');
 app.use('/getConnectionRequests', getConnectionRequests);
+
 var getConnections = require('./routes/getConnections.js');
 app.use('/getConnections', getConnections);
+
 var addChat = require('./routes/addChat');
 app.use('/addChat', addChat);
 

@@ -27,21 +27,25 @@ router.post('/', (req, res) => {
                 db.one("SELECT firstname FROM members WHERE username=$1 AND verificationCode=$2", [username, verifiedCode])
                     .then(rowCheck => {
                         res.send({
+                            success: true,
                             message: "Password updated!"
                         });
                     })
                     .catch((err) => {
                         res.send({
+                            success: false,
                             message: "Verification code is wrong!"
                         });
                     })
             }).catch((err) => {
                 res.send({
+                    success: false,
                     message: "Password failed to update! Wrong verification code!"
                 });
             });
     } else {
         res.send({
+            success: false,
             message: "Invalid password!"
         });
     }

@@ -14,17 +14,28 @@ var router = express.Router();
 //search by username
 router.post("/", (req, res) => {
     var search = req.body['search'];
-    var query = "SELECT firstname, lastname FROM members WHERE username LIKE '" + search + "%' OR email LIKE '" + search + "%'";
-    db.manyOrNone(query)
-    .then(rows => {
-        res.send({
-            message: rows
+    var username = req.body['username'];
+    var likeSearch = search + '%';
+    var query = "SELECT firstname, lastname, username, email FROM members WHERE (username ILIKE $1 OR firstname ILIKE $1 OR lastname ILIKE $1 OR email=$2) AND username!=$3";
+    var params = [likeSearch, search, username];
+    if (search && username) {
+        db.manyOrNone(query, params)
+        .then(rows => {
+            res.send({
+                success: true,
+                message: rows
+            });
+        }).catch((err) => {
+            res.send({
+                message: "Invalid query!"
+            });
         });
-    }).catch((err) => {
+    } else {
         res.send({
-            message: "Invalid query!"
-        });
-    });
+            success: false,
+            message: 'Search and username cannot be empty.'
+        })
+    }
 });
 
 

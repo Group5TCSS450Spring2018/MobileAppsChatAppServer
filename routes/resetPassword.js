@@ -24,17 +24,20 @@ router.post('/', (req, res) => {
                 db.none(query_update, [verificationCode, row['username']])
                     .then(row2 => {
                         res.send({
+                            success: true,
                             message: "Email sent to " + email
                         });
                     })
                     .catch((err) => {
                         res.send({
+                            success: false,
                             message: "Failed to update!"
                         });
                     });
             })
             .catch((err) => {
                 res.send({
+                    success: false,
                     message: "No email found!"
                 });
             });

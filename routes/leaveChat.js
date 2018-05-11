@@ -21,6 +21,7 @@ router.post("/", (req, res) => {
                 AND chatmembers.chatid IN (SELECT chats.chatid FROM chats WHERE chats.name=$2)`;
     db.none(query, [username, chatName])
     .then(rows => {
+        //let query_checkchats = `DELETE FROM chats WHERE 2 > count(SELECT `
         res.send({
             success: true,
             message: "You have left!"

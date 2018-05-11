@@ -15,24 +15,32 @@ app.use(bodyParser.json());
 //Allows user to leave the chat forever
 router.post("/", (req, res) => {
     let username = req.body['username'];
-    let chatName = req.body['chatname']; 
+    let chatName = req.body['chatname'];
     let query = `DELETE FROM chatmembers WHERE 
                 chatmembers.memberid IN (SELECT members.memberid FROM members WHERE username=$1) 
                 AND chatmembers.chatid IN (SELECT chats.chatid FROM chats WHERE chats.name=$2)`;
     db.none(query, [username, chatName])
-    .then(rows => {
-        //let query_checkchats = `DELETE FROM chats WHERE 2 > count(SELECT `
-        res.send({
-            success: true,
-            message: "You have left!"
+        .then(rows => {
+            let query_checkchats = `DELETE FROM chatmembers WHERE 
+                                    2 > (SELECT count(*) FROM chatmembers WHERE chatmembers.chatid=(SELECT chats.chatid FROM chats WHERE name=$1)) 
+                                    AND chatmembers.chatid=(SELECT chats.chatid FROM chats WHERE name=$2)`;
+            db.none(query_checkchats, [chatName, chatName])
+                .then(row => {
+                    console.log("Chat deleted!");
+                }).catch((err) => {
+                    console.log("Nah fam");
+                });
+            res.send({
+                success: true,
+                message: "You have left!"
+            })
         })
-    })
-    .catch((err) => {
-        res.send({
-            message: "Something went wrong",
-            error: err
-        })
-    });
+        .catch((err) => {
+            res.send({
+                message: "Something went wrong",
+                error: err
+            })
+        });
 });
 
 

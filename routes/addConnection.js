@@ -12,7 +12,7 @@ router.post('/', (req, res) => {
     let username_a = req.body['username_a'];
     let username_b = req.body['username_b'];
     if(!username_a || !username_b ) {
-        console.log("help");
+        //console.log("help");
         res.send({
             success: false,
             error: "Username a and Username b are empty"

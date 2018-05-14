@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
     let username = req.body['username'];
-    let query_a = `SELECT username, firstname, lastname 
+    let query_a = `SELECT username, firstname, lastname, email
     FROM members 
     WHERE memberid 
     IN (
@@ -28,7 +28,7 @@ router.post("/", (req, res) => {
         ) 
         AND verified=1
     )`;
-    let query_b = `SELECT username, firstname, lastname 
+    let query_b = `SELECT username, firstname, lastname, email 
                         FROM members 
                         WHERE memberid 
                         IN (

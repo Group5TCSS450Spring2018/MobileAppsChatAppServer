@@ -14,7 +14,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
-    let username = req.body['username']; //memberid_a is the reciever of request
+    let username = req.body['username'];
     let query = `SELECT username, firstname, lastname 
                     FROM members 
                     WHERE memberid 
@@ -24,7 +24,15 @@ router.post("/", (req, res) => {
                         WHERE memberid_a=(
                             SELECT memberid 
                             FROM members 
-                            WHERE username=$1
+                            WHERE username=$1)
+                        OR memberid
+                        IN (
+                            SELECT memberid_a 
+                            FROM contacts 
+                            WHERE memberid_b=(
+                                SELECT memberid 
+                                FROM members 
+                                WHERE username=$1)
                         ) 
                         AND verified=1
                     )`;

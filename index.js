@@ -70,6 +70,9 @@ app.use('/leaveChat', leaveChat);
 var resendCode = require('./routes/resendCode');
 app.use('/resendCode', resendCode);
 
+var denyConnection = require('./routes/denyConnection');
+app.use('/denyConnection', denyConnection);
+
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable
 * To accesss an environment variable, use process.env.<ENV>

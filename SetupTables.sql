@@ -16,7 +16,7 @@ CREATE TABLE Contacts(PrimaryKey SERIAL PRIMARY KEY,
                       MemberID_B INT NOT NULL,
                       Verified INT DEFAULT 0,
                       FOREIGN KEY(MemberID_A) REFERENCES Members(MemberID),
-                      FOREIGN KEY(MemberID_B) REFERENCES Members(MemberID)
+                      FOREIGN KEY(MemberID_B) REFERENCES Members(MemberID),
 );
 
 DROP TABLE IF EXISTS Chats;
@@ -50,3 +50,7 @@ CREATE TABLE Locations (PrimaryKey SERIAL PRIMARY KEY,
                         ZIP INT,
                         FOREIGN KEY(MemberID) REFERENCES Members(MemberID)
 );
+
+
+ALTER TABLE contacts ADD CONSTRAINT noDupedContacts UNIQUE (memberid_a, memberid_b);
+

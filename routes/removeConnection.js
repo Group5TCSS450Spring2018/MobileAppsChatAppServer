@@ -12,12 +12,15 @@ app.use(bodyParser.json());
 router.post('/', (req, res) => {
     let username = req.body['username'];
     let username_me = req.body['me']
-    let remove = `DELETE FROM contacts WHERE memberid_a = (SELECT memberid FROM members WHERE username=$1) AND memberid_b = (SELECT memberid FROM members WHERE username=$2)`;
+    let remove = `DELETE FROM contacts 
+    WHERE (memberid_a = (SELECT memberid FROM members WHERE username=$1) 
+    AND memberid_b = (SELECT memberid FROM members WHERE username=$2))
+    OR (memberid_b = (SELECT memberid FROM members WHERE username=$1) 
+    AND memberid_a = (SELECT memberid FROM members WHERE username=$2))`;
     db.none(remove, [username, username_me])
         .then(() => {
             res.send({
                 success: true
-
             });
         }).catch((err) => {
             console.log(err);

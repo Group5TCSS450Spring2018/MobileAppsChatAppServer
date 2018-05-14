@@ -16,20 +16,34 @@ router.post("/", (req, res) => {
     var search = req.body['search'];
     var username = req.body['username'];
     var likeSearch = search + '%';
-    var query = "SELECT firstname, lastname, username, email FROM members WHERE (username ILIKE $1 OR firstname ILIKE $1 OR lastname ILIKE $1 OR email=$2) AND username!=$3";
+    var query = `SELECT firstname, lastname, username, email 
+    FROM members 
+    WHERE (memberid NOT IN (SELECT memberid_a
+            FROM contacts
+            WHERE memberid=memberid_a 
+            AND memberid_b IN (SELECT memberid FROM members WHERE username=$3))
+            AND memberid NOT IN (SELECT memberid_b
+                FROM contacts
+                WHERE memberid=memberid_b 
+                AND memberid_a IN (SELECT memberid FROM members WHERE username=$3)))
+        AND (username ILIKE $1 
+        OR firstname ILIKE $1 
+        OR lastname ILIKE $1 
+        OR email=$2) 
+    AND username!=$3`;
     var params = [likeSearch, search, username];
     if (search && username) {
         db.manyOrNone(query, params)
-        .then(rows => {
-            res.send({
-                success: true,
-                message: rows
+            .then(rows => {
+                res.send({
+                    success: true,
+                    message: rows
+                });
+            }).catch((err) => {
+                res.send({
+                    message: "Invalid query!"
+                });
             });
-        }).catch((err) => {
-            res.send({
-                message: "Invalid query!"
-            });
-        });
     } else {
         res.send({
             success: false,

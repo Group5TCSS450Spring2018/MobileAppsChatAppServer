@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
    HH24:MI:SS.US' ) AS Timestamp FROM messages 
                 INNER JOIN members ON messages.memberid=members.memberid
                 WHERE messages.chatid=(SELECT chats.chatid FROM chats WHERE chats.name=$1)
-                ORDER BY messages.timestamp ASC`;
+                ORDER BY messages.timestamp DESC`;
     db.manyOrNone(query, [chatname])
         .then((rows) => {
             res.send({

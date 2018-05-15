@@ -8,7 +8,8 @@ var router = express.Router();
 
 router.post("/", (req, res) => {
     let username = req.body['username'];
-    let query = `SELECT messages.message, messages.chatid, messages.memberid FROM messages
+    let query = `SELECT messages.message, messages.chatid, members.username FROM messages
+    INNER JOIN 
      WHERE messages.chatid IN (SELECT chatid FROM chats WHERE chats.chatid IN 
     (SELECT chatmembers.chatid FROM chatmembers 
         WHERE chatmembers.memberid = (SELECT members.memberid FROM members

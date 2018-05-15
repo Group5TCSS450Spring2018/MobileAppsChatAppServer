@@ -1,4 +1,4 @@
-node //express is the framework we're going to use to handle requests
+//express is the framework we're going to use to handle requests
 const express = require('express');
 
 const delay = require('delay');

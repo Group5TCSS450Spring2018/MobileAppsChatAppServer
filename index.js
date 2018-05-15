@@ -76,7 +76,7 @@ app.use('/denyConnection', denyConnection);
 var recentSent = require('./routes/recentSent');
 app.use('/recentSent', recentSent);
 
-var getChatId = require('./routes/getChatID');
+var getChatId = require('./routes/getChatId.js');
 app.use('/getChatId', getChatId);
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable

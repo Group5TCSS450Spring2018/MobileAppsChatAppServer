@@ -7,13 +7,13 @@ let db = require('../utilities/utils').db;
 var router = express.Router();
 
 router.post("/", (req, res) => {
-    let chatname = req.body['chatname'];
+    let chatid = req.body['chatid'];
     let query = `SELECT members.username, messages.message, to_char(Messages.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD
                 HH24:MI:SS.US' ) AS Timestamp FROM messages 
                 INNER JOIN members ON messages.memberid=members.memberid
-                WHERE messages.chatid=(SELECT chats.chatid FROM chats WHERE chats.name=$1)
+                WHERE messages.chatid=(SELECT chats.chatid FROM chats WHERE chats.chatid=$1)
                 ORDER BY messages.timestamp ASC`;
-    db.manyOrNone(query, [chatname])
+    db.manyOrNone(query, [chatid])
         .then((rows) => {
             res.send({
                 messages: rows

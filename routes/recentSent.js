@@ -14,7 +14,7 @@ router.post("/", (req, res) => {
                  WHERE messages.chatid IN (SELECT chatid FROM chats WHERE chats.chatid IN 
                 (SELECT chatmembers.chatid FROM chatmembers 
                 WHERE chatmembers.memberid = (SELECT members.memberid FROM members
-                WHERE username=$1))) ORDER BY timestamp DESC`;
+                WHERE username=$1))) ORDER BY timestamp ASC`;
     db.manyOrNone(query, [username])
         .then(row => {
             res.send({

@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
    Timestamp AT TIME ZONE 'PDT' > $1
    ORDER BY Timestamp ASC`;*/
    let query = `SELECT members.username, messages.message, to_char(Messages.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD
-   HH24:MI:SS.US' ) AS Timestamp FROM messages 
+                HH24:MI:SS.US' ) AS Timestamp FROM messages 
                 INNER JOIN members ON messages.memberid=members.memberid
                 WHERE messages.chatid=(SELECT chats.chatid FROM chats WHERE chats.name=$1)
                 ORDER BY messages.timestamp ASC`;

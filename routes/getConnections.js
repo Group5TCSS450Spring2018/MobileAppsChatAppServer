@@ -42,15 +42,21 @@ router.post("/", (req, res) => {
                             AND verified=1
                         )`;
 
-    var connections = [];
     db.manyOrNone(query_a, [username])
-    .then(rows_a => {
-        db.manyOrNone(query_b, [username])
-        .then(rows_b => {
-            res.send( {
-                connections_a: rows_a,
-                connections_b: rows_b
-            })
+        .then(rows_a => {
+            db.manyOrNone(query_b, [username])
+                .then(rows_b => {
+                    res.send({
+                        connections_a: rows_a,
+                        connections_b: rows_b
+                    })
+                })
+                .catch((err) => {
+                    res.send({
+                        message: "Something went wrong",
+                        error: err
+                    })
+                });
         })
         .catch((err) => {
             res.send({
@@ -58,13 +64,6 @@ router.post("/", (req, res) => {
                 error: err
             })
         });
-    })
-    .catch((err) => {
-        res.send({
-            message: "Something went wrong",
-            error: err
-        })
-    });
 });
 
 

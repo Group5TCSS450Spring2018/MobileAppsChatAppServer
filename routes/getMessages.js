@@ -6,18 +6,14 @@ const app = express();
 let db = require('../utilities/utils').db;
 var router = express.Router();
 
-router.get("/", (req, res) => {
-    let chatId = req.query['chatId'];
-    let after = req.query['after'];
-    let query = `SELECT Members.Username, Messages.Message,
-    to_char(Messages.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD
-   HH24:MI:SS.US' ) AS Timestamp
-    FROM Messages
-   INNER JOIN Members ON Messages.MemberId=Members.MemberId
-   WHERE ChatId=$2 AND
-   Timestamp AT TIME ZONE 'PDT' > $1
-   ORDER BY Timestamp ASC`
-    db.manyOrNone(query, [after, chatId])
+router.post("/", (req, res) => {
+    let chatid = req.body['chatid'];
+    let query = `SELECT members.username, messages.message, to_char(Messages.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD
+                HH24:MI:SS.US' ) AS Timestamp FROM messages 
+                INNER JOIN members ON messages.memberid=members.memberid
+                WHERE messages.chatid=(SELECT chats.chatid FROM chats WHERE chats.chatid=$1)
+                ORDER BY messages.timestamp ASC`;
+    db.manyOrNone(query, [chatid])
         .then((rows) => {
             res.send({
                 messages: rows

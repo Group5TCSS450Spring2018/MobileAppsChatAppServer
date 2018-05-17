@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 //http://api.wunderground.com/api/719e1681b31fb896/conditions/bestfct/q/98068.json
 var url = `http://api.wunderground.com/api/%s/%s/bestfct/q/%s.json`
-util.format(url, API_KEY_WEATHER);
+
 router.post('/getWeather', (req, res) => {
     let location = req.body['location'];
     if(!location) {
@@ -20,7 +20,7 @@ router.post('/getWeather', (req, res) => {
         });
         return;
     }
-    util.format(url, 'conditions', location);
+    util.format(url, API_KEY_WEATHER, 'conditions', location);
     request(url, function(error, response, body){
         if(error) {
             res.send(error);

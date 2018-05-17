@@ -43,6 +43,10 @@ app.use('/getConnectionRequests', getConnectionRequests);
 var getConnections = require('./routes/getConnections.js');
 app.use('/getConnections', getConnections);
 
+var getWeather = require('./routes/getWeather.js');
+app.use('/getWeather', getWeather);
+
+
 var addChat = require('./routes/addChat');
 app.use('/addChat', addChat);
 

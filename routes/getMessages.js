@@ -6,8 +6,9 @@ const app = express();
 let db = require('../utilities/utils').db;
 var router = express.Router();
 
-router.post("/", (req, res) => {
-    let chatid = req.body['chatid'];
+router.get("/", (req, res) => {
+    let chatid = req.query['chatid'];
+    let after = req.query['after'];
     let query = `SELECT members.username, messages.message, to_char(Messages.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD
                 HH24:MI:SS.US' ) AS Timestamp FROM messages 
                 INNER JOIN members ON messages.memberid=members.memberid

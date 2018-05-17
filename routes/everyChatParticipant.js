@@ -15,8 +15,7 @@ app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
     let username = req.body['username'];
-    let query = `SELECT DISTINCT chatid FROM chatmembers 
-    WHERE chatid IN (SELECT chatid FROM chatmembers WHERE memberid=(SELECT memberid FROM members WHERE username=$1))`
+    let query = ``;
     db.manyOrNone(query, [username])
         .then(rows => {
             res.send({

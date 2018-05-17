@@ -7,10 +7,10 @@ const util = require('util');
 var router = express.Router();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-//http://api.wunderground.com/api/719e1681b31fb896/conditions/bestfct/q/98068.json
+//var url = `http://api.wunderground.com/api/719e1681b31fb896/conditions/bestfct/q/98068.json`
 var url = `http://api.wunderground.com/api/%s/%s/bestfct/q/%s.json`
 
-router.post('/getWeather', (req, res) => {
+router.post('/', (req, res) => {
     let location = req.body['location'];
     if(!location) {
         //console.log("help");
@@ -20,12 +20,25 @@ router.post('/getWeather', (req, res) => {
         });
         return;
     }
-    util.format(url, API_KEY_WEATHER, 'conditions', location);
+    url = util.format(url, API_KEY_WEATHER, 'hourly', location);
+    console.log(url);
     request(url, function(error, response, body){
+        //console.log(response);
+        var result = JSON.parse(body);
         if(error) {
             res.send(error);
         } else {
-            res.send(body);
+            result = result.hasOwnProperty('hourly_forecast');
+            console.log("\n"+result);
+            if(result) {
+                
+                    res.send(body);
+                    
+                
+                    
+                
+            }
+            
         }
     });
     

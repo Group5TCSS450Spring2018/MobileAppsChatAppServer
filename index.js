@@ -43,8 +43,14 @@ app.use('/getConnectionRequests', getConnectionRequests);
 var getConnections = require('./routes/getConnections.js');
 app.use('/getConnections', getConnections);
 
-var getWeather = require('./routes/getWeather.js');
-app.use('/getWeather', getWeather);
+var currentWeather = require('./routes/currentWeather.js');
+app.use('/currentWeather', currentWeather);
+
+var hourlyWeather = require('./routes/hourlyWeather.js');
+app.use('/hourlyWeather', hourlyWeather);
+
+var forecast10Weather = require('./routes/forecast10Weather.js');
+app.use('/forecast10Weather', forecast10Weather);
 
 
 var addChat = require('./routes/addChat');

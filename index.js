@@ -52,6 +52,11 @@ app.use('/hourlyWeather', hourlyWeather);
 var forecast10Weather = require('./routes/forecast10Weather.js');
 app.use('/forecast10Weather', forecast10Weather);
 
+var saveWeather = require('./routes/saveWeather.js');
+app.use('/saveWeather', saveWeather);
+
+var getSavedWeather = require('./routes/getSavedWeather.js');
+app.use('/getSavedWeather', getSavedWeather);
 
 var addChat = require('./routes/addChat');
 app.use('/addChat', addChat);

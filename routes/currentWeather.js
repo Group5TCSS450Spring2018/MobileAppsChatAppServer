@@ -28,11 +28,20 @@ router.post('/', (req, res) => {
         if(error) {
             res.send(error);
         } else {
-            result = result.hasOwnProperty('current_observation');
-            console.log(result);
-            if(result) {
-                
-                    res.send(body);
+            var current = result.hasOwnProperty('current_observation');
+            console.log(current);
+            if(current) {
+                    var temp_f = result['current_observation']['temp_f'];
+                    //var temp = result['temp_f'];
+                    console.log(temp_f);
+                    
+                    var json = {
+                        "temp_f":temp_f,
+                        "10_days" : {
+                            
+                        }
+                    }
+                    res.send(json);
                     
                 
                     

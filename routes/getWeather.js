@@ -1,10 +1,12 @@
 const API_KEY_WEATHER = process.env.WEATHER_UNDERGROUND_API_KEY;
 const express = require('express');
-
+const app = express();
 //request module is needed to make a request to a web service
 const request = require('request');
 const util = require('util');
 var router = express.Router();
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 //http://api.wunderground.com/api/719e1681b31fb896/conditions/bestfct/q/98068.json
 var url = `http://api.wunderground.com/api/%s/%s/bestfct/q/%s.json`
 util.format(url, API_KEY_WEATHER);

@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
                         "location":location
                     }
                     console.log(location);
-                    res.send(result);
+                    res.send(json);
                     
                 
                     

@@ -31,7 +31,8 @@ router.post('/', (req, res) => {
             result = result.hasOwnProperty('forecast');
             console.log("\n"+result);
             if(result) {
-                
+                var p1 = ['result']['forecast'];
+                console.log(p1);
                     res.send(body);
                     
                 

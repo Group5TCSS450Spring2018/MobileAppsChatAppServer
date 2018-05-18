@@ -34,9 +34,10 @@ router.post('/', (req, res) => {
                     var temp_f = result['current_observation']['temp_f'];
                     //var temp = result['temp_f'];
                     
-                    var location = result['current_observation']['observation_location']['full']
+                    var loc = result['current_observation']['observation_location']['full']
                     var json = {
-                        "temp_f":temp_f
+                        "temp_f":temp_f,
+                        "location": loc
                     }
                     console.log(location);
                     res.send(json);

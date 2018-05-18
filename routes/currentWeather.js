@@ -7,8 +7,6 @@ const util = require('util');
 var router = express.Router();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-//var url = `http://api.wunderground.com/api/719e1681b31fb896/conditions/bestfct/q/98068.json`
-var url = `http://api.wunderground.com/api/%s/%s/bestfct/q/%s.json`
 
 router.post('/', (req, res) => {
     let location = req.body['location'];
@@ -20,8 +18,9 @@ router.post('/', (req, res) => {
         });
         return;
     }
-    url = util.format(url, API_KEY_WEATHER, 'conditions', location);
-    console.log(url);
+    
+    var url = `http://api.wunderground.com/api/${API_KEY_WEATHER}/conditions/bestfct/q/${location}.json`;
+    console.log("URL IS: " + url);
     request(url, function(error, response, body){
         //console.log(response);
         var result = JSON.parse(body);
@@ -29,7 +28,7 @@ router.post('/', (req, res) => {
             res.send(error);
         } else {
             var current = result.hasOwnProperty('current_observation');
-            console.log(current);
+            console.log("RESULT : " + current);
             if(current) {
                     var temp_f = result['current_observation']['temp_f'];
                     //var temp = result['temp_f'];
@@ -38,7 +37,7 @@ router.post('/', (req, res) => {
                     var json = {
                         "temp_f":temp_f
                     }
-                    console.log(location);
+                    console.log("LOCATION: " + location);
                     res.send(json);
             }
             

@@ -7,8 +7,6 @@ const util = require('util');
 var router = express.Router();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-//var url = `http://api.wunderground.com/api/719e1681b31fb896/conditions/bestfct/q/98068.json`
-var url = `http://api.wunderground.com/api/%s/%s/bestfct/q/%s.json`
 
 router.post('/', (req, res) => {
     let location = req.body['location'];
@@ -20,7 +18,8 @@ router.post('/', (req, res) => {
         });
         return;
     }
-    url = util.format(url, API_KEY_WEATHER, 'conditions', location);
+    
+    var url = `http://api.wunderground.com/api/${API_KEY_WEATHER}/conditions/bestfct/q/${location}.json`;
     console.log("URL IS: " + url);
     request(url, function(error, response, body){
         //console.log(response);

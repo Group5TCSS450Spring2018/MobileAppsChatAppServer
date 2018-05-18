@@ -32,12 +32,14 @@ router.post("/", (req, res) => {
                 })
                 .catch((err) => {
                     res.send({
+                        success: false,
                         message: "User doesn't exist!"
                     })
                 });
         })
         .catch((err) => {
             res.send({
+                success: false,
                 message: "Something went wrong",
                 error: err
             })

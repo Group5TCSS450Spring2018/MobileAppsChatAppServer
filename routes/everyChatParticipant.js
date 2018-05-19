@@ -15,20 +15,16 @@ app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
     let username = req.body['username'];
-    let query = `SELECT members.username, chatmembers.chatid, chats.name FROM members 
-                INNER JOIN chatmembers ON members.memberid=chatmembers.memberid
-                INNER JOIN chats ON chatmembers.chatid=chats.chatid
-                WHERE members.memberid IN 
-                (SELECT chatmembers.memberid FROM chatmembers WHERE chatmembers.chatid IN 
-                (SELECT chats.chatid FROM chats WHERE chats.chatid IN 
-                (SELECT chatmembers.chatid FROM chatmembers 
-                    WHERE chatmembers.memberid = (SELECT members.memberid FROM members
-                    WHERE username=$1))))`;
+    let query = `SELECT chatmembers.chatid, members.username, chats.name FROM chatmembers
+                 INNER JOIN members ON members.memberid=chatmembers.memberid
+                 INNER JOIN chats ON chats.chatid=chatmembers.chatid
+                 WHERE chatmembers.chatid IN 
+                 (SELECT chatid FROM chatmembers WHERE memberid=(SELECT memberid FROM members WHERE username=$1))`
     db.manyOrNone(query, [username])
         .then(rows => {
             res.send({
-                success: true,
-                message: rows
+                message: rows,
+                success: true
             })
         })
         .catch((err) => {

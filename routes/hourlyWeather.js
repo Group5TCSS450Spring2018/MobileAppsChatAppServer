@@ -28,11 +28,21 @@ router.post('/', (req, res) => {
         if(error) {
             res.send(error);
         } else {
-            result = result.hasOwnProperty('hourly_forecast');
+            
             console.log("\n"+result);
-            if(result) {
-                
-                    res.send(body);
+            if(result.hasOwnProperty('hourly_forecast')) {
+                    
+                    var timearray = [];
+                    var temparray = [];
+                    for(i=0; i<24; i++){
+                        timearray[i] = result['hourly_forecast'][i]['FCTTIME']['civil'];
+                        temparray[i] = result['hourly_forecast'][i]['temp']['english']
+                    }
+                    var json = {
+                        "timearray":timearray,
+                        "temparray":temparray
+                    }
+                    res.send(json);
                     
                 
                     

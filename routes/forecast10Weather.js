@@ -64,7 +64,19 @@ router.post('/', (req, res) => {
                 var m8 = result['forecast']['simpleforecast']['forecastday'][7]['date']['day'];
                 var m9 = result['forecast']['simpleforecast']['forecastday'][8]['date']['day'];
                 var m10 = result['forecast']['simpleforecast']['forecastday'][9]['date']['day'];
+
+                var date = [];
+                var temp = [];
+                for(var i = 0; i<20; i+2){
+                    temp[i] = result['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'];
+                }
+                for(var i = 0; i<10; i++){
+                    temp[i] = result['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'];
+                }
+
                 var json = {
+                    // "temparray":temp,
+                    // "datearray":date
                     'day1':date1+" "+m1+" "+d1,
                     'day2':date2+" "+m2+" "+d2,
                     'day3':date3+" "+m3+" "+d3,
@@ -76,11 +88,8 @@ router.post('/', (req, res) => {
                     'day9':date9+" "+m9+" "+d9,
                     'day10':date10+" "+m10+" "+d10
                 }
-                    res.send(json);
-                    
                 
-                    
-                
+                res.send(json);
             }
             
         }

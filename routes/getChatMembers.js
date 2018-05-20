@@ -14,22 +14,24 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
-    let username = req.body['username'];
-    let query = `SELECT DISTINCT chatid, name FROM chats 
-    WHERE chatid IN (SELECT chatid FROM chatmembers WHERE memberid=(SELECT memberid FROM members WHERE username=$1))`
-    db.manyOrNone(query, [username])
-        .then(rows => {
-            res.send({
-                success: true,
-                message: rows
-            })
+    let chatid = req.body['chatid'];
+    let query = `SELECT members.username FROM chatmembers
+                 INNER JOIN members ON members.memberid=chatmembers.memberid
+                 WHERE chatmembers.chatid=$1`;
+    
+    db.manyOrNone(query, [chatid])
+    .then(rows => {
+        res.send({
+            success: true,
+            recieved_requests: rows
         })
-        .catch((err) => {
-            res.send({
-                message: "Something went wrong",
-                error: err
-            })
-        });
+    })
+    .catch((err) => {
+        res.send({
+            message: "Something went wrong",
+            error: err
+        })
+    });
 });
 
 

@@ -73,6 +73,7 @@ router.post('/', (req, res) => {
                 for(var i = 0; i<10; i++){
                     temp[i] = result['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'];
                 }
+
                 var json = {
                     // "temparray":temp,
                     // "datearray":date
@@ -87,11 +88,8 @@ router.post('/', (req, res) => {
                     'day9':date9+" "+m9+" "+d9,
                     'day10':date10+" "+m10+" "+d10
                 }
-                    res.send(json);
-                    
                 
-                    
-                
+                res.send(json);
             }
             
         }

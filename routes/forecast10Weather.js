@@ -75,18 +75,18 @@ router.post('/', (req, res) => {
                 }
 
                 var json = {
-                    // "temparray":temp,
-                    // "datearray":date
-                    'day1':date1+" "+m1+" "+d1,
-                    'day2':date2+" "+m2+" "+d2,
-                    'day3':date3+" "+m3+" "+d3,
-                    'day4':date4+" "+m4+" "+d4,
-                    'day5':date5+" "+m5+" "+d5,
-                    'day6':date6+" "+m6+" "+d6,
-                    'day7':date7+" "+m7+" "+d7,
-                    'day8':date8+" "+m8+" "+d8,
-                    'day9':date9+" "+m9+" "+d9,
-                    'day10':date10+" "+m10+" "+d10
+                    "temparray":temp,
+                    "datearray":date
+                    // 'day1':date1+" "+m1+" "+d1,
+                    // 'day2':date2+" "+m2+" "+d2,
+                    // 'day3':date3+" "+m3+" "+d3,
+                    // 'day4':date4+" "+m4+" "+d4,
+                    // 'day5':date5+" "+m5+" "+d5,
+                    // 'day6':date6+" "+m6+" "+d6,
+                    // 'day7':date7+" "+m7+" "+d7,
+                    // 'day8':date8+" "+m8+" "+d8,
+                    // 'day9':date9+" "+m9+" "+d9,
+                    // 'day10':date10+" "+m10+" "+d10
                 }
                 
                 res.send(json);

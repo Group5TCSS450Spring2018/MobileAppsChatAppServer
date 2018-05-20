@@ -70,7 +70,7 @@ router.post('/', (req, res) => {
                 for(var i = 0; i<20; i+2){
                     temp[i] = result['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'];
                 }
-                for(var i = 0; i<10; i+++){
+                for(var i = 0; i<10; i++){
                     temp[i] = result['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'];
                 }
                 var json = {

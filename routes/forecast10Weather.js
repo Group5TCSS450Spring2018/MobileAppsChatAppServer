@@ -88,7 +88,7 @@ router.post('/', (req, res) => {
                     // 'day10':date10+" "+m10+" "+d10
                 }
                 
-                res.send(body);
+                res.send(json);
             }
             
         }

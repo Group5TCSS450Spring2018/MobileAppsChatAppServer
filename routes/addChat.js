@@ -13,7 +13,7 @@ let db = require('../utilities/utils').db;
 router.post('/', (req, res) => { 
     var chatname = req.body['chatname'];
     var members = req.body['members'];
-    var chatID = 0;
+    var theChatID = 0;
     let select = `SELECT MemberId FROM Members WHERE Username=$1`
 
     let insert = `INSERT INTO ChatMembers(ChatId, MemberId) 
@@ -24,7 +24,6 @@ router.post('/', (req, res) => {
 
     db.none('SELECT ChatId FROM Chats WHERE Name=$1', [chatname])
     .then(row => {
-        theChatID = row['ChatID'];
         db.none('INSERT INTO Chats(Name) VALUES($1)', [chatname])
         .then(row =>{
             db.tx(t => {
@@ -41,11 +40,21 @@ router.post('/', (req, res) => {
                     return t.batch(queries);
                 })
                 .then(data2 => {
-                    res.send({
+                    db.one('SELECT ChatId FROM Chats WHERE Name=$1', [chatname])
+                    .then(row => {
+                      res.send({
                         success: true,
-                        chatid: theChatID,
-                        message: "Chat created and chat members added!",
+                        chatid: row['chatid'],
+                        message: "Chat created and chat members added!"
+                      });
                     })
+                    .catch(err => {
+                      res.send({
+                        success: false,
+                        message: "WHAT HAPPEND??",
+                        errror: err
+                      });
+                    });
                 })
                 .catch(err => {
                     res.send({
@@ -83,6 +92,7 @@ router.post('/', (req, res) => {
         });
     })
     .catch(err => {
+        console.log(err);
         res.send({
             success: false,
             message: "CHAT ALREADY EXISTS!",

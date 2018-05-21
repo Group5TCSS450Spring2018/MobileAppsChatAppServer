@@ -35,11 +35,12 @@ router.post('/', (req, res) => {
                     
                     var loc = result['current_observation']['observation_location']['full']
                     var i = result['current_observation']['icon']
+                    var array = [];
+                    array[1] = temp_f;
+                    array[2] = loc;
+                    array[3] = icon;
                     var json = {
-                        "temp_f":temp_f,
-
-                        "location": loc,
-                        "icon": i
+                        array
                     }
                     console.log("LOCATION: " + location);
                     res.send(json);

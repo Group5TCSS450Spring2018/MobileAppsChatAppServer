@@ -67,15 +67,19 @@ router.post('/', (req, res) => {
 
                 var date = [];
                 var temp = [];
+                var icon = [];
                 for(var i = 0; i<10; i++){
                     temp[i] = result['forecast']['simpleforecast']['forecastday'][i]['high']['fahrenheit'];
                     date[i] = result['forecast']['simpleforecast']['forecastday'][i]['date']['pretty'];
+                    icon[i] = result['forecast']['simpleforecast']['forecastday'][i]['icon'];
+
                 }
                 
 
                 var json = {
                     "temparray":temp,
-                    "datearray":date
+                    "datearray":date,
+                    "iconarray":icon
                     // 'day1':date1+" "+m1+" "+d1,
                     // 'day2':date2+" "+m2+" "+d2,
                     // 'day3':date3+" "+m3+" "+d3,

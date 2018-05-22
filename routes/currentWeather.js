@@ -8,8 +8,8 @@ var router = express.Router();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-router.post('/', (req, res) => {
-    let location = req.body['location'];
+router.get('/', (req, res) => {
+    let location = req.query['location'];
     if(!location) {
         //console.log("help");
         res.send({

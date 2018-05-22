@@ -35,13 +35,16 @@ router.post('/', (req, res) => {
                     
                     var timearray = [];
                     var temparray = [];
+                    var icon = [];
                     for(i=0; i<24; i++){
                         timearray[i] = result['hourly_forecast'][i]['FCTTIME']['civil'];
-                        temparray[i] = result['hourly_forecast'][i]['temp']['english']
+                        temparray[i] = result['hourly_forecast'][i]['temp']['english'];
+                        icon[i] = result['hourly_forecast'][i]['icon'];
                     }
                     var json = {
                         "timearray":timearray,
-                        "temparray":temparray
+                        "temparray":temparray,
+                        "iconarray":icon
                     }
                     res.send(json);
                     

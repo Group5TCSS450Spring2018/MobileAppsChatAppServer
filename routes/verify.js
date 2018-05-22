@@ -17,7 +17,7 @@ var router = express.Router();
 router.post('/', (req, res) => {
     let userCode = req.body['verifyCode'];
     let username = req.body['username'];
-    let query = `SELECT email FROM members WHERE verificationcode=$1 AND verification=0 AND username=$2`;
+    let query = `SELECT timestamp, email FROM members WHERE verificationcode=$1 AND verification=0 AND username=$2`
     if (userCode && username) {
         db.one(query, [userCode, username])
             .then(row => {

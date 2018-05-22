@@ -10,10 +10,10 @@ app.use(bodyParser.json());
 router.post('/', (req, res) => {
     let username = req.body['username'];
     //let nickname = req.body['nickname'];
-    let lat = req.body['lat'];
-    let lng = req.body['lng'];
+    // let lat = req.body['lat'];
+    // let lng = req.body['lng'];
     let zip = req.body['zip'];
-    if(!username || !lat|| !lng|| !zip) {
+    if(!username || !zip) {
         //console.log("help");
         res.send({
             success: false,
@@ -22,9 +22,9 @@ router.post('/', (req, res) => {
         return;
     }
     
-    let insert = `INSERT INTO locations(memberid, lat, long, zip) 
-        VALUES((SELECT memberid FROM members WHERE username = $1), $2, $3, $4)`;
-    db.none(insert, [username, lat, lng, zip])
+    let insert = `INSERT INTO locations(memberid, zip) 
+        VALUES((SELECT memberid FROM members WHERE username = $1), $2)`;
+    db.none(insert, [username, zip])
         .then(() => {
             res.send({
                 success: true

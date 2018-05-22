@@ -13,8 +13,8 @@ const bodyParser = require("body-parser");
 //This allows parsing of the body of POST requests, that are encoded in JSON
 app.use(bodyParser.json());
 
-router.post("/", (req, res) => {
-    let username = req.body['username']; //memberid_a is the reciever of request
+router.get("/", (req, res) => {
+    let username = req.query['username']; //memberid_a is the reciever of request
     let query = `SELECT username, firstname, lastname, email 
                     FROM members 
                     WHERE memberid 

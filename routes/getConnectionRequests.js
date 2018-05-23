@@ -28,8 +28,8 @@ router.get("/", (req, res) => {
                             FROM members 
                             WHERE username=$1
                         ) 
-                        AND verified=0 AND Timestamp AT TIME ZONE 'PDT' > timestamp $2
-                        AND Timestamp AT TIME ZONE 'PDT' <> timestamp $2
+                        AND verified=0 AND Timestamp AT TIME ZONE 'PDT' > $2
+                        AND Timestamp AT TIME ZONE 'PDT' <> $2
                     )
                     ORDER BY contacts.timestamp ASC`;
     

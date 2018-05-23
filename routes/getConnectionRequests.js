@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
                         AND verified=0 AND Timestamp AT TIME ZONE 'PDT' > $2
                         AND Timestamp AT TIME ZONE 'PDT' <> $2
                     )
-                    ORDER BY contacts.timestamp ASC`;
+                    ORDER BY contacts.timestamp DESC`;
     
     db.manyOrNone(query, [username, after])
     .then(rows => {

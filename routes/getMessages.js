@@ -9,8 +9,7 @@ var router = express.Router();
 router.get("/", (req, res) => {
     let chatid = req.query['chatid'];
     let after = req.query['after'];
-    let query = `SELECT members.username, messages.message, to_char(Messages.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD
-                HH24:MI:SS.US' ) AS Timestamp FROM messages 
+    let query = `SELECT members.username, messages.message, to_char(Messages.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD HH24:MI:SS.US' ) AS Timestamp FROM messages 
                 INNER JOIN members ON messages.memberid=members.memberid
                 WHERE messages.chatid=(SELECT chats.chatid FROM chats WHERE chats.chatid=$1)
                 ORDER BY messages.timestamp ASC`;

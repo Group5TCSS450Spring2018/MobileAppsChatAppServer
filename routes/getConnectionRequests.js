@@ -15,9 +15,8 @@ app.use(bodyParser.json());
 
 router.get("/", (req, res) => {
     let username = req.query['username']; //memberid_a is the reciever of request
-    let after = req.query['after'];
-    let query = `SELECT username, firstname, lastname, email, contacts.timestamp
-                 FROM members INNER JOIN contacts ON contacts.memberid_a=members.memberid
+    let query = `SELECT username, firstname, lastname, email
+                 FROM members
                     WHERE memberid 
                     IN (
                         SELECT memberid_b 
@@ -28,10 +27,9 @@ router.get("/", (req, res) => {
                             WHERE username=$1
                         ) 
                         AND verified=0
-                    )
-                    ORDER BY contacts.timestamp DESC`;
+                    )`;
     
-    db.manyOrNone(query, [username, after])
+    db.manyOrNone(query, [username])
     .then(rows => {
         res.send({
             success: true,

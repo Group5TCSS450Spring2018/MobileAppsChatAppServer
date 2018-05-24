@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
         });
         return;
     }
-    
+    console.log(location);
     var url = `http://api.wunderground.com/api/${API_KEY_WEATHER}/conditions/bestfct/q/${location}.json`;
     console.log("URL IS: " + url);
     request(url, function(error, response, body){
@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
                     var temp_f = result['current_observation']['temp_f'];
                     //var temp = result['temp_f'];
                     
-                    var loc = result['current_observation']['observation_location']['full']
+                    var loc = result['current_observation']['display_location']['full']
                     var i = result['current_observation']['icon']
                     var array = [];
                     array[0] = temp_f;

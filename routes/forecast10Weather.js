@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
         });
         return;
     }
-    var url = `http://api.wunderground.com/api/${API_KEY_WEATHER}/forecast10day/bestfct/q/${location}.json`
+    var url = `http://api.wunderground.com/api/${API_KEY_WEATHER}/forecast10day/q/${location}.json`
     console.log(url);
     request(url, function(error, response, body){
         //console.log(response);

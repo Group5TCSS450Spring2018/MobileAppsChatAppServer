@@ -15,20 +15,9 @@ app.use(bodyParser.json());
 
 router.get("/", (req, res) => {
     let username = req.query['username']; //memberid_a is the reciever of request
-    let query = `SELECT username, firstname, lastname, email
-                 FROM members
-                    WHERE memberid 
-                    IN (
-                        SELECT memberid_b 
-                        FROM contacts 
-                        WHERE memberid_a=(
-                            SELECT memberid 
-                            FROM members 
-                            WHERE username=$1
-                        ) 
-                        AND verified=0
-                    )`;
-    
+    let query = `SELECT contacts.timestamp FROM contacts WHERE contacts.memberid_a=
+    (SELECT members.memberid FROM members WHERE members.username=$1)
+    ORDER BY contacts.timestamp DESC`;
     db.manyOrNone(query, [username])
     .then(rows => {
         res.send({

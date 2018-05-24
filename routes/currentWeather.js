@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
         } else {
             var current = result.hasOwnProperty('current_observation');
             console.log("RESULT : " + current);
-            if(current) {
+            if(current && result['current_observation'] != undefined) {
                     var temp_f = result['current_observation']['temp_f'];
                     //var temp = result['temp_f'];
                     

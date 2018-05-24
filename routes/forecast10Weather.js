@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
             
             console.log("\n"+result);
             //CLEAN THIS UP LATER.
-            if(result.hasOwnProperty('forecast')) {
+            if(result.hasOwnProperty('forecast') && result['forecast'] != undefined) {
                 // var d1 = result['forecast']['simpleforecast']['forecastday'][0]['high']['fahrenheit'];
                 // var d2 = result['forecast']['simpleforecast']['forecastday'][1]['high']['fahrenheit'];
                 // var d3 = result['forecast']['simpleforecast']['forecastday'][2]['high']['fahrenheit'];

@@ -99,6 +99,9 @@ app.use('/everyChatParticipant', everyChatParticipant);
 
 var getChatMembers = require('./routes/getChatMembers');
 app.use('/getChatMembers', getChatMembers);
+
+var getChatNotifications = require('./routes/getChatNotifications');
+app.use('/getChatNotifications', getChatNotifications);
 /* 
 * Heroku will assign a port you can use via the 'PORT' environment variable
 * To accesss an environment variable, use process.env.<ENV>

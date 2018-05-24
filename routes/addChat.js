@@ -42,18 +42,31 @@ router.post('/', (req, res) => {
                 .then(data2 => {
                     db.one('SELECT ChatId FROM Chats WHERE Name=$1', [chatname])
                     .then(row => {
-                      res.send({
-                        success: true,
-                        chatid: row['chatid'],
-                        message: "Chat created and chat members added!"
-                      });
+                        db.none(`INSERT INTO Messages(ChatID, Message, MemberID) 
+                                    (SELECT $1, $2, MemberId FROM Members WHERE Username=$3)`, 
+                                    [row['chatid'], "Hello Everyone! \"" + chatname + "\" Chat Created!", members[0]])
+                        .then(misc => {
+                            res.send({
+                                success: true,
+                                chatid: row['chatid'],
+                                message: "Chat created and chat members added!"
+                            });
+                        })
+                        .catch(err => {
+                            res.send({
+                                success: true,
+                                message: "Issues with inserting initial message!",
+                                error: err
+                            })
+                        });
+                        
                     })
                     .catch(err => {
-                      res.send({
-                        success: false,
-                        message: "WHAT HAPPEND??",
-                        errror: err
-                      });
+                        res.send({
+                            success: false,
+                            message: "WHAT HAPPEND??",
+                            errror: err
+                        });
                     });
                 })
                 .catch(err => {

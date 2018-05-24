@@ -13,10 +13,12 @@ const bodyParser = require("body-parser");
 //This allows parsing of the body of POST requests, that are encoded in JSON
 app.use(bodyParser.json());
 
-router.post("/", (req, res) => {
-    let username = req.body['username']; //memberid_a is the reciever of request
-    let query = `SELECT username, firstname, lastname, email 
-                    FROM members 
+router.get("/", (req, res) => {
+    let username = req.query['username']; //memberid_a is the reciever of request
+    let after = req.query['after'];
+    let query = `SELECT username, firstname, lastname, email, 
+                 to_char(contacts.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD HH24:MI:SS.US' ) AS timestamp 
+                 FROM members INNER JOIN contacts ON contacts.memberid_a=members.memberid
                     WHERE memberid 
                     IN (
                         SELECT memberid_b 
@@ -26,10 +28,12 @@ router.post("/", (req, res) => {
                             FROM members 
                             WHERE username=$1
                         ) 
-                        AND verified=0
-                    )`;
+                        AND verified=0 AND Timestamp AT TIME ZONE 'PDT' > $2
+                        AND Timestamp AT TIME ZONE 'PDT' <> $2
+                    )
+                    ORDER BY contacts.timestamp DESC`;
     
-    db.manyOrNone(query, [username])
+    db.manyOrNone(query, [username, after])
     .then(rows => {
         res.send({
             success: true,

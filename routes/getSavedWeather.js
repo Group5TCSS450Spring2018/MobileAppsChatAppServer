@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 
 router.post("/", (req, res) => {
     let username = req.body['username'];
-    let query = `SELECT zip FROM locations WHERE memberid = (SELECT memberid FROM members WHERE username = $1)`;
+    let query = `SELECT zip, lat, long FROM locations WHERE memberid = (SELECT memberid FROM members WHERE username = $1)`;
     db.manyOrNone(query, [username])
     .then(rows => {
         res.send({

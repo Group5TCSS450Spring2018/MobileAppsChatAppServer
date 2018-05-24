@@ -8,8 +8,8 @@ var router = express.Router();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-router.post('/', (req, res) => {
-    let location = req.body['location'];
+router.get('/', (req, res) => {
+    let location = req.query['location'];
     if(!location) {
         //console.log("help");
         res.send({
@@ -36,9 +36,9 @@ router.post('/', (req, res) => {
                     var loc = result['current_observation']['observation_location']['full']
                     var i = result['current_observation']['icon']
                     var array = [];
-                    array[1] = temp_f;
-                    array[2] = loc;
-                    array[3] = icon;
+                    array[0] = temp_f;
+                    array[1] = loc;
+                    array[2] = i;
                     var json = {
                         array
                     }

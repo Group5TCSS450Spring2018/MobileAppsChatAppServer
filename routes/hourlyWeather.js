@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
         } else {
             
             console.log("\n"+result);
-            if(result.hasOwnProperty('hourly_forecast')) {
+            if(result.hasOwnProperty('hourly_forecast') && result['hourly_forecast'] != undefined) {
                     
                     var timearray = [];
                     var temparray = [];

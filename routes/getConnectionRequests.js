@@ -16,8 +16,7 @@ app.use(bodyParser.json());
 router.get("/", (req, res) => {
     let username = req.query['username']; //memberid_a is the reciever of request
     let after = req.query['after'];
-    let query = `SELECT username, firstname, lastname, email, 
-                 to_char(contacts.Timestamp AT TIME ZONE 'PDT', 'YYYY-MM-DD HH24:MI:SS.US' ) AS timestamp 
+    let query = `SELECT username, firstname, lastname, email, contacts.timestamp
                  FROM members INNER JOIN contacts ON contacts.memberid_a=members.memberid
                     WHERE memberid 
                     IN (
@@ -28,8 +27,7 @@ router.get("/", (req, res) => {
                             FROM members 
                             WHERE username=$1
                         ) 
-                        AND verified=0 AND Timestamp AT TIME ZONE 'PDT' > $2
-                        AND Timestamp AT TIME ZONE 'PDT' <> $2
+                        AND verified=0
                     )
                     ORDER BY contacts.timestamp DESC`;
     

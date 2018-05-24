@@ -70,11 +70,12 @@ router.post('/', (req, res) => {
                 var icon = [];
                 var tempLow = [];
                 for(var i = 0; i<10; i++){
-                    temp[i] = result['forecast']['simpleforecast']['forecastday'][i]['high']['fahrenheit'];
-                    date[i] = result['forecast']['simpleforecast']['forecastday'][i]['date']['pretty'];
-                    icon[i] = result['forecast']['simpleforecast']['forecastday'][i]['icon'];
-                    tempLow[i] = result['forecast']['simpleforecast']['forecastday'][i]['low']['fahrenheit'];
-
+                    if (result['forecast']['simpleforecast']['forecastday'][i] != undefined) {
+                        temp[i] = result['forecast']['simpleforecast']['forecastday'][i]['high']['fahrenheit'];
+                        date[i] = result['forecast']['simpleforecast']['forecastday'][i]['date']['pretty'];
+                        icon[i] = result['forecast']['simpleforecast']['forecastday'][i]['icon'];
+                        tempLow[i] = result['forecast']['simpleforecast']['forecastday'][i]['low']['fahrenheit'];
+                    }
                 }
                 
 

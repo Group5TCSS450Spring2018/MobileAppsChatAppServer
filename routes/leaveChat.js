@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
     db.none(query, [username, chatName])
         .then(rows => {
             let query_checkchats = `DELETE FROM chatmembers WHERE 
-                                    2 > (SELECT count(*) FROM chatmembers WHERE chatmembers.chatid=(SELECT chats.chatid FROM chats WHERE name=$1)) 
+                                    1 > (SELECT count(*) FROM chatmembers WHERE chatmembers.chatid=(SELECT chats.chatid FROM chats WHERE name=$1)) 
                                     AND chatmembers.chatid=(SELECT chats.chatid FROM chats WHERE name=$2)`;
             db.none(query_checkchats, [chatName, chatName])
                 .then(row => {

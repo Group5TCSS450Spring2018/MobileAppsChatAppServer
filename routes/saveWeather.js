@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 router.post('/', (req, res) => {
     let username = req.body['username'];
     //let nickname = req.body['nickname'];
-    let lat = req.body['lat'];
-    let lng = req.body['lng'];
+    // let lat = req.body['lat'];
+    // let lng = req.body['lng'];
     let zip = req.body['zip'];
     if(!zip) {
         let insert = `INSERT INTO locations(memberid, lat, long) 

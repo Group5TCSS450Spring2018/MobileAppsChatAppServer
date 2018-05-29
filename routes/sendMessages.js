@@ -1,3 +1,6 @@
+/**
+ * Allows users to send messages.
+ */
 //express is the framework we're going to use to handle requests
 const express = require('express');
 //Create a new instance of express
@@ -10,7 +13,6 @@ router.post("/", (req, res) => {
     let username = req.body['username'];
     let message = req.body['message'];
     let chatId = req.body['chatId'];
-    console.log('Hello world');
     if (!username || !message || !chatId) {
         res.send({
             success: false,

@@ -1,3 +1,7 @@
+/**
+ * Adds a chat for a particular user to communicate with 1 or many other members
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express');
 //Create a new instance of express

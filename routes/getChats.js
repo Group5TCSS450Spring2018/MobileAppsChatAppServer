@@ -1,3 +1,7 @@
+/**
+ * Get all of the chats that a user is involved in.
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express');
 

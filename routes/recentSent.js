@@ -1,3 +1,7 @@
+/**
+ * Gets all the most recent messages sent by each user.
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express');
 //Create a new instance of express

@@ -1,3 +1,7 @@
+/**
+ * Uses weather underground API to retrieve the current weather based off user selected or current location.
+ */
+
 const API_KEY_WEATHER = process.env.WEATHER_UNDERGROUND_API_KEY;
 const express = require('express');
 const app = express();
@@ -19,6 +23,7 @@ router.get('/', (req, res) => {
         return;
     }
     console.log(location);
+    //Calls the weather underground API
     var url = `http://api.wunderground.com/api/${API_KEY_WEATHER}/conditions/bestfct/q/${location}.json`;
     console.log("URL IS: " + url);
     request(url, function(error, response, body){

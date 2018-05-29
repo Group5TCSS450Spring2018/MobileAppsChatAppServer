@@ -1,3 +1,6 @@
+/**
+ * Gets all connections for a certain user.
+ */
 //express is the framework we're going to use to handle requests
 const express = require('express');
 
@@ -41,7 +44,9 @@ router.post("/", (req, res) => {
                             ) 
                             AND verified=1
                         )`;
-
+    /**
+     * Nested queries to get both memberid_a connections and memberid_b connection
+     */
     db.manyOrNone(query_a, [username])
         .then(rows_a => {
             db.manyOrNone(query_b, [username])

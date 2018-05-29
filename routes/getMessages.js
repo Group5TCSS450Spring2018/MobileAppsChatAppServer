@@ -1,3 +1,6 @@
+/**
+ * Get all the messages for a particular user in a particular chat.
+ */
 //express is the framework we're going to use to handle requests
 const express = require('express');
 //Create a new instance of express

@@ -1,3 +1,6 @@
+/**
+ * Saves the weather requested by a user.
+ */
 const express = require('express');
 //Create a new instance of express
 const app = express();

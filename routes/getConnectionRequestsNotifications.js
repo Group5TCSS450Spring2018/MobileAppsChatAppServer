@@ -1,3 +1,6 @@
+/**
+ * For notifications because connection requests was kinda set and I got lazy.
+ */
 //express is the framework we're going to use to handle requests
 const express = require('express');
 

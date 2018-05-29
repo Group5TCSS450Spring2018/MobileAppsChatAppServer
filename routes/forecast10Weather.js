@@ -1,3 +1,7 @@
+/**
+ * Retrieves the 10 day forecast for a particular location
+ */
+
 const API_KEY_WEATHER = process.env.WEATHER_UNDERGROUND_API_KEY;
 const express = require('express');
 const app = express();

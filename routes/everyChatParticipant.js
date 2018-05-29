@@ -1,3 +1,7 @@
+/**
+ * Retrieves every person in every chat for a particular user from each chat for all recent chats
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express');
 

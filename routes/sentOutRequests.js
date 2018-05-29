@@ -1,3 +1,7 @@
+/**
+ * Gets all the requests sentout by a user.
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express');
 

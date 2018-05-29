@@ -1,3 +1,6 @@
+/**
+ * Allows users to leave a chat and no longer receive messages from that chat.
+ */
 //express is the framework we're going to use to handle requests
 const express = require('express');
 

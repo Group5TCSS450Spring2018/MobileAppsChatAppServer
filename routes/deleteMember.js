@@ -1,3 +1,7 @@
+/**
+ * Deletes a member from the database used for primarily adminstrative purposes.
+ */
+
 const express = require('express');
 const FormData = require("form-data");
 const bodyParser = require("body-parser");

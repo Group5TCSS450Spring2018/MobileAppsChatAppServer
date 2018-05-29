@@ -7,6 +7,13 @@ const validator = require('validator');
 const emailExistence = require('email-existence');
 const nodemailer = require('nodemailer');
 
+/**
+ * Sends an email to a user
+ * @param {string} from1 user sending email 
+ * @param {string} to1  receiver of email
+ * @param {string} subject1 subject line
+ * @param {string} message message of email
+ */
 function sendEmail(from1, to1, subject1, message) {
     nodemailer.createTestAccount((err, account) => {
         // create reusable transporter object using the default SMTP transport
@@ -41,7 +48,14 @@ function sendEmail(from1, to1, subject1, message) {
     });
 }
 
-
+/**
+ * Validates all user inputs sent in from the mobile app.
+ * @param {string} first first name of user
+ * @param {string} last last name of user
+ * @param {string} username username of user
+ * @param {string} email email for user
+ * @param {string} password password for user
+ */
 function validateInputs(first, last, username, email, password) {
     var isValidReg = true;
     validator.trim(first);
@@ -66,6 +80,10 @@ function validateInputs(first, last, username, email, password) {
     return isValidReg;
 }
 
+/**
+ * Validates the password entered by user
+ * @param {string} password 
+ */
 function validatePass(password) {
     var isValid = true;
     validator.trim(password);
@@ -74,6 +92,10 @@ function validatePass(password) {
     } 
     return isValid;
 }
+/**
+ * Checks the previous day for verification
+ * @param {string} timeRegistered 
+ */
 function checkOneDayAgo(timeRegistered) {
     const twentyFourHour = 1000 * 60 * 60 * 24;
     let twentyFourAgo = Date.now() - twentyFourHour;

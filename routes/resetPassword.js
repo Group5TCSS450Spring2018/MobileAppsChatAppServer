@@ -1,3 +1,7 @@
+/**
+ * Allows user to reset the password for there account through email verification.
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express');
 //Create a new instance of express

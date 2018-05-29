@@ -1,3 +1,7 @@
+/**
+ * Sends a connection request out between two users. Username A receives a connection request from username B.
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express');
 //Create a new instance of express

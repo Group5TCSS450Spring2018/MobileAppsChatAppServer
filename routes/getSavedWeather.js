@@ -1,3 +1,7 @@
+/**
+ * Gets the currently saved weather.
+ */
+
 //express is the framework we're going to use to handle requests
 const express = require('express');
 
